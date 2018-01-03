@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.leeson.components.views.RoundCornerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:round_corner="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        
+        <com.leeson.components.views.underLineView.UnderLineTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="safe"
+            android:textColor="@color/blackText"
+            android:textSize="16sp" />
+
+        <com.leeson.components.views.DragLayout
+            android:id="@+id/dragLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.leeson.components.views.MaxScorllView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
+
+                <TextView
+                    android:id="@+id/tv_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/bottomMargin"
+                    android:layout_marginEnd="@dimen/rightMargin"
+                    android:layout_marginStart="@dimen/leftMargin"
+                    android:layout_marginTop="@dimen/topMargin"
+                    android:minHeight="50dp"
+                    android:text="werwer"
+                    android:textColor="@color/blackText"
+                    android:textSize="@dimen/smallSize" />
+
+            </com.leeson.components.views.MaxScorllView>
+
+        </com.leeson.components.views.DragLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/lineColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <com.leeson.components.views.RoundCornerTextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/blackText"
+                app:cornerLeftBottom="5dp"
+                android:textSize="@dimen/smallSize" />
+
+            <com.leeson.components.views.RoundCornerTextView
+                android:id="@+id/tv_ok"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/agree"
+                android:textAllCaps="false"
+                android:textColor="@color/blackText"
+                app:solidColor="@color/colorAccent"
+                android:textSize="@dimen/smallSize" />
+        </LinearLayout>
+    </LinearLayout>
+</com.leeson.components.views.RoundCornerLayout>

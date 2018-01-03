@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <com.leeson.components.views.RoundCornerLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:round_corner="3dp">
+
+        <com.leeson.components.views.MaxScorllView
+            android:id="@+id/maxScorllView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:maxH="300dp"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:id="@+id/layout_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </com.leeson.components.views.MaxScorllView>
+    </com.leeson.components.views.RoundCornerLayout>
+
+    <com.leeson.components.views.RoundCornerTextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/smallSize"
+        app:pressColor="@color/press_color"
+        app:corner="3dp"
+        app:solidColor="@color/white" />
+
+</LinearLayout>
+

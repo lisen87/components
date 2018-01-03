@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UnderLineLayout" >
+        <attr name="lineLeft" format="dimension"/>
+        <attr name="lineSize" format="dimension"/>
+        <attr name="lineColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundCornerTextView">
+        <attr name="stroke" format="dimension"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="solidColor" format="color"/>
+        <attr name="pressColor" format="color"/>
+        <attr name="corner" format="dimension"/>
+        <attr name="cornerLeftTop" format="dimension"/>
+        <attr name="cornerRightTop" format="dimension"/>
+        <attr name="cornerLeftBottom" format="dimension"/>
+        <attr name="cornerRightBottom" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundCornerLayout">
+        <!--圆形-->
+        <attr name="round_as_circle" format="boolean"/>
+        <!--全部圆角半径-->
+        <attr name="round_corner" format="integer|dimension"/>
+        <!--针对各个角的半径-->
+        <attr name="round_corner_top_left" format="integer|dimension"/>
+        <attr name="round_corner_top_right" format="integer|dimension"/>
+        <attr name="round_corner_bottom_left" format="integer|dimension"/>
+        <attr name="round_corner_bottom_right" format="integer|dimension"/>
+
+        <!--描边颜色／半径-->
+        <attr name="stroke_color" format="color|reference"/>
+        <attr name="stroke_width" format="integer|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ButtonObserver">
+        <attr name="enableDrawable" format="reference"/>
+        <attr name="disableDrawable" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="DragLayout">
+        <attr name="dragViewIndex" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="MaxScorllView">
+        <attr name="maxH" format="dimension"/>
+        <attr name="maxW" format="dimension"/>
+        <attr name="minW" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MaxSizeRecyclerView">
+        <attr name="maxHeight" format="dimension"/>
+        <attr name="maxWidth" format="dimension"/>
+    </declare-styleable>
+</resources>
