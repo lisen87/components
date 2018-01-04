@@ -3,6 +3,7 @@ package com.leeson.components.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,6 +26,8 @@ public class DragLayout extends FrameLayout {
     private View dragView;
     private Point point = new Point();//记录可拖动的view的原来的XY位置
 
+    private DragCallBack callBack;
+
     public DragLayout(Context context) {
         this(context,null);
     }
@@ -38,7 +41,8 @@ public class DragLayout extends FrameLayout {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DragLayout,defStyleAttr,0);
         dragViewIndex = typedArray.getInt(R.styleable.DragLayout_dragViewIndex,0);
         typedArray.recycle();
-        mDragger = ViewDragHelper.create(this, 1f, new DragCallBack());
+        callBack = new DragCallBack();
+        mDragger = ViewDragHelper.create(this, 1f, callBack);
     }
     // 手指滑动距离与下拉头的滑动距离比，中间会随正切函数变化
     private float radio = 1f;
@@ -51,9 +55,9 @@ public class DragLayout extends FrameLayout {
         if (CommonUtils.isKeyboardShown(DragLayout.this)){
             CommonUtils.closeKeyBoard(getContext());
         }
-        touchSlowDown(event);
         mDragger.processTouchEvent(event);
-        return true;
+
+        return touchSlowDown(event);
     }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
@@ -61,22 +65,33 @@ public class DragLayout extends FrameLayout {
         return mDragger.shouldInterceptTouchEvent(event);
     }
 
-    private void touchSlowDown(MotionEvent event){
+    private boolean touchSlowDown(MotionEvent event){
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 lastY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 touchTopY = touchTopY + (event.getY() - lastY) / radio;
                 lastY = event.getY();
                 // 根据下拉距离改变比例
                 radio = (float) (1.5 + 2 * Math.tan(Math.PI / 2 / height
                         * (touchTopY + Math.abs(touchTopY))));
+                if (lastY >= getMeasuredHeight() || lastY <= 0
+                        || event.getX() > getMeasuredWidth()-30 || event.getX()-30 <= 0){
+                    if (mDragger.smoothSlideViewTo(dragView,0,point.y)) {
+                        touchTopY = point.y;
+                        ViewCompat.postInvalidateOnAnimation(this);
+                        postInvalidate();
+                    }
+                }
+
                 break;
             case MotionEvent.ACTION_UP:
                 touchTopY = point.y;
                 break;
         }
+        return true;
     }
     @Override
     public void computeScroll() {
