@@ -32,6 +32,8 @@ public class WareView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
+    private PorterDuffXfermode xfermode;
+
     public WareView(Context context) {
         this(context,null);
     }
@@ -55,6 +57,7 @@ public class WareView extends View {
         bitPaint.setColor(Color.GRAY);
         bitPaint.setStrokeWidth(8);
 
+        xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
         setViewanimator();
     }
 
@@ -78,6 +81,7 @@ public class WareView extends View {
 
         //简化写法
         for (int i = 0; i < 2; i++) {
+
             mPath.quadTo(-mScreenWidth * 3 / 4 + (mScreenWidth * i) + mOffset, mScreenHeight / 2 - 50, -mScreenWidth / 2 + (mScreenWidth * i) + mOffset, mScreenHeight / 2);
             mPath.quadTo(-mScreenWidth / 4 + (mScreenWidth * i) + mOffset, mScreenHeight / 2 + 50, +(mScreenWidth * i) + mOffset, mScreenHeight / 2);
         }
@@ -85,7 +89,7 @@ public class WareView extends View {
         mPath.lineTo(mScreenWidth, mScreenHeight);
         mPath.lineTo(0, mScreenHeight);
 
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setXfermode(xfermode);
         mCanvas.drawPath(mPath, paint);
 
 
