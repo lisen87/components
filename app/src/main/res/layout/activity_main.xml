@@ -29,8 +29,9 @@
             android:padding="5dp"
             app:strokeColor="@color/darkGreen"
             android:text="leeson"/>
-        <android.support.v4.widget.NestedScrollView
+        <com.leeson.components.views.BaseScrollView
             android:id="@+id/nestScrollView"
+            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -39,6 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <com.leeson.components.views.WareView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
                 <com.leeson.components.views.RoundCornerTextView
                     android:id="@+id/tv1"
                     android:layout_marginTop="10dp"
@@ -98,18 +102,21 @@
                     app:pressColor="@color/press_color"
                     android:text="多级选择POP"/>
                 <com.leeson.components.views.RoundCornerTextView
+                    android:id="@+id/tv_recy"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@android:color/black"
                     android:gravity="center"
                     android:padding="10dp"
-                    app:stroke="1px"
-                    app:corner="2dp"
-                    app:strokeColor="@color/gray"
-                    android:text="这是圆角的"/>
+                    app:stroke="2dp"
+                    app:corner="5dp"
+                    android:textSize="26sp"
+                    app:strokeColor="@android:color/holo_green_dark"
+                    app:pressColor="@color/green"
+                    android:text="演示列表惯性滑动"/>
                 <com.leeson.components.views.RoundCornerTextView
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
@@ -138,10 +145,6 @@
                     app:strokeColor="@color/colorAccent"
                     android:text="这是圆角的"/>
                 
-                <com.leeson.components.views.WareView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-                
                 <com.leeson.components.views.RoundCornerTextView
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
@@ -195,7 +198,7 @@
                     app:strokeColor="@color/colorAccent"
                     android:text="这是圆角的"/>
                 <com.leeson.components.views.RoundCornerTextView
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="1000dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_width="match_parent"
@@ -209,7 +212,7 @@
                     android:text="这是圆角的"/>
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </com.leeson.components.views.BaseScrollView>
     </com.leeson.components.views.DragLayout>
 
 

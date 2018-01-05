@@ -2,7 +2,6 @@ package com.leeson.components.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 
 import com.leeson.components.R;
@@ -14,7 +13,7 @@ import com.leeson.components.R;
  * @author lisen < 4533548588@qq.com >
  */
 
-public class MaxScorllView extends NestedScrollView {
+public class MaxScorllView extends BaseScrollView {
     private int maxHeight = -1;
     private int maxWidth = -1;
     public MaxScorllView(Context context) {

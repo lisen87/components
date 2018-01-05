@@ -1,10 +1,12 @@
 package com.leeson.components.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +28,8 @@ public class DragLayout extends FrameLayout {
     private View dragView;
     private Point point = new Point();//记录可拖动的view的原来的XY位置
 
-    private DragCallBack callBack;
+    private int downScrollY = 0;//手指按下时控件已经滚动的距离
+    private long downStartTime = 0;//手指按下时的时间
 
     public DragLayout(Context context) {
         this(context,null);
@@ -41,7 +44,7 @@ public class DragLayout extends FrameLayout {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DragLayout,defStyleAttr,0);
         dragViewIndex = typedArray.getInt(R.styleable.DragLayout_dragViewIndex,0);
         typedArray.recycle();
-        callBack = new DragCallBack();
+        DragCallBack callBack = new DragCallBack();
         mDragger = ViewDragHelper.create(this, 1f, callBack);
     }
     // 手指滑动距离与下拉头的滑动距离比，中间会随正切函数变化
@@ -65,10 +68,13 @@ public class DragLayout extends FrameLayout {
         return mDragger.shouldInterceptTouchEvent(event);
     }
 
+
     private boolean touchSlowDown(MotionEvent event){
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 lastY = event.getY();
+                downStartTime = System.currentTimeMillis();
+                downScrollY = dragView.getScrollY();
                 break;
             case MotionEvent.ACTION_MOVE:
 
@@ -100,6 +106,7 @@ public class DragLayout extends FrameLayout {
         }
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
@@ -109,6 +116,48 @@ public class DragLayout extends FrameLayout {
             point.y = dragView.getTop();
             touchTopY = point.y;
             height = getMeasuredHeight();
+
+            if (dragView instanceof BaseScrollView){
+
+                //设置惯性滑动
+                ((BaseScrollView)dragView).setOnScrollListener(new BaseScrollView.OnScrollListener() {
+                    @Override
+                    public void onScroll(int l, int t, int oldl, int oldt) {
+                        if ( CommonUtils.isReachBottom(dragView) || CommonUtils.isReachTop(dragView)){
+                            inertiaScroll(oldt - t);
+                        }
+                    }
+                });
+            }else if (dragView instanceof RecyclerView){
+                ((RecyclerView) dragView).addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        if ( CommonUtils.isReachBottom(dragView) || CommonUtils.isReachTop(dragView)){
+                            inertiaScroll(-dy);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * 惯性滚动
+     * @param scrollY 滚动的距离
+     */
+    private void inertiaScroll(int scrollY){
+        if (mDragger.smoothSlideViewTo(dragView,point.x,scrollY)) {
+            ViewCompat.postInvalidateOnAnimation(DragLayout.this);
+            invalidate();
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mDragger.smoothSlideViewTo(dragView,point.x,point.y);
+                    ViewCompat.postInvalidateOnAnimation(DragLayout.this);
+                    invalidate();
+                }
+            },100);
         }
     }
 

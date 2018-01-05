@@ -1,15 +1,15 @@
 package com.leeson.components;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.leeson.components.functionInterface.IClickListener;
 import com.leeson.components.functionInterface.IWarningDialog;
 import com.leeson.components.utils.CommonUtils;
 import com.leeson.components.utils.ToastUtil;
+import com.leeson.components.views.BaseScrollView;
 import com.leeson.components.views.DragLayout;
 import com.leeson.components.views.FilterLayout;
 import com.leeson.components.views.TempBean;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements DragLayout.DragLi
     DragLayout dragLayout;
 
     @BindView(R.id.nestScrollView)
-    NestedScrollView nestScrollView;
+    BaseScrollView nestScrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements DragLayout.DragLi
         return CommonUtils.isReachBottom(nestScrollView);
     }
 
-    @OnClick({R.id.tv1, R.id.tv2,R.id.tv3})
+    @OnClick({R.id.tv1, R.id.tv2,R.id.tv3,R.id.tv_recy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv1:
@@ -91,25 +91,22 @@ public class MainActivity extends AppCompatActivity implements DragLayout.DragLi
                     public void onConfirmListener() {
                         ToastUtil.showShort(MainActivity.this,content);
                     }
-
                     @Override
                     public void onCancelListener() {
-
                     }
                 });
                 warning.setMsgHeight(CommonUtils.getScreenHeight(this)/2);
                 warning.showTitle(View.VISIBLE);
                 warning.setTitle("这是标题");
-                warning.show(content+"\n"+ content+"\n"+ content);
+                warning.show(content+"\n"+ content+"\n"+ content+"\n"+ content+"\n"+ content+"\n"+ content);
 
                 break;
             case R.id.tv3:
-
-
                 initFilterLayout();
-
-
-                Log.e("===", "onViewClicked: ");
+                break;
+            case R.id.tv_recy:
+                Intent intent = new Intent(this,RecyActivity.class);
+                startActivity(intent);
                 break;
         }
     }
